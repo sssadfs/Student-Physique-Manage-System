@@ -18,15 +18,14 @@ public class UpdateStudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        ResponseWriter.prepareJson(response);
 
         try {
             Student student = StudentRequestParser.parseStudent(request);
             StudentDAO studentDAO = new StudentDAO();
             studentDAO.update(student);
-            ResponseWriter.writeSuccess(response, "修改学生成功");
+            RequestForwarder.forwardMessage(request, response, true, "修改学生成功", request.getContextPath() + "/updateStudent.jsp");
         } catch (Exception e) {
-            ResponseWriter.writeError(response, "修改学生失败：" + e.getMessage());
+            RequestForwarder.forwardMessage(request, response, false, "修改学生失败：" + e.getMessage(), request.getContextPath() + "/updateStudent.jsp");
         }
     }
 }

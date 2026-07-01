@@ -18,7 +18,6 @@ public class DeleteStudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        ResponseWriter.prepareJson(response);
 
         try {
             Student student = new Student();
@@ -26,9 +25,9 @@ public class DeleteStudentServlet extends HttpServlet {
 
             StudentDAO studentDAO = new StudentDAO();
             studentDAO.remove(student);
-            ResponseWriter.writeSuccess(response, "删除学生成功");
+            RequestForwarder.forwardMessage(request, response, true, "删除学生成功", request.getContextPath() + "/deleteStudent.jsp");
         } catch (Exception e) {
-            ResponseWriter.writeError(response, "删除学生失败：" + e.getMessage());
+            RequestForwarder.forwardMessage(request, response, false, "删除学生失败：" + e.getMessage(), request.getContextPath() + "/deleteStudent.jsp");
         }
     }
 }
