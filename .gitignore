@@ -1,0 +1,16 @@
+# Ignore everything by default.
+*
+
+# Keep this ignore file.
+!.gitignore
+
+# Keep all source files.
+!src/
+!src/**
+
+# Keep JSP files under web.
+!web/
+web/**
+!web/**/
+!web/*.jsp
+!web/**/*.jsp
